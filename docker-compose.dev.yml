@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    command: sh -c " python manage.py migrate && python manage.py runserver 0.0.0.0:8000 "
+    volumes:
+      - type: bind
+        source: ./backend/config
+        target: /home/app/web/config
+      - type: bind
+        source: ./backend/feature_extraction
+        target: /home/app/web/feature_extraction
+      - type: bind
+        source: ./backend/templates
+        target: /home/app/web/templates
+      - backend_volume:/app
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    command: npm run dev 
+    volumes:
+      - type: bind
+        source: ./frontend/src
+        target: /app/src
+      - type: bind
+        source: ./frontend/index.html
+        target: /app/index.html
+      - frontend_volume:/app
+    ports:
+      - 8080:8080 
+    depends_on:
+      - backend
+    env_file:
+      - ./.env.dev
+volumes:
+  backend_volume:
+  frontend_volume:
+
