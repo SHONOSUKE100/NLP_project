@@ -14,8 +14,8 @@ This repository contains the source code for an application dealing with natural
 This application uses Docker, making it easy to set up the environment. Please follow the steps below.
 
 ### 1. 必要なライブラリのインストール (Installing Required Libraries):
-- `requirements.txt` には、アプリケーションの実行に必要なライブラリがリストされています。  
-The `requirements.txt` lists the libraries required to run the application.
+- `requirements.dev.txt`と`requirements.prod.txt` には、アプリケーションの実行に必要なライブラリがリストされています。  
+The `requirements.txt` and `requirements.prod.txt` lists the libraries required to run the application.
   
 - 開発用とデプロイ用にそれぞれ異なるライブラリをインストールする場合 (If installing different libraries for development and deployment):  
   - 開発用 (Development): `requirements.dev.txt`
