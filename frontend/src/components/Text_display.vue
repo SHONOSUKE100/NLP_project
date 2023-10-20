@@ -3,7 +3,7 @@
   <v-main class="">
     <v-container>
       <v-btn @click="fetchResult">Fetch Result</v-btn>
-      <div v-if=this.$store.state.send v-html="highlightedText"></div>
+      <div v-if=this.result v-html="highlightedText"></div>
     </v-container>
   </v-main>
 </template>

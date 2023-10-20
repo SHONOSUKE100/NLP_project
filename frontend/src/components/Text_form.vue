@@ -27,11 +27,6 @@ export default {
   mounted() {
     this.initializeHeight();
   },
-  computed: {
-    send () {
-      return this.$store.state.send
-    }
-  },
   methods: {
     send() {
       axios.post('http://localhost:8000/api/process/', {
@@ -70,9 +65,6 @@ export default {
         }
       });
     },
-    change(){
-      store.commit('change', true)
-    }
   },
 }
 </script>
