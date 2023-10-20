@@ -36,7 +36,7 @@ def rule_based_ner_to_json(text):
                 entities.append({
                     "start": start,
                     "end": end,
-                    "label": None,
+                    "label": "None",
                     "word": leaf[0]
                 })
 
