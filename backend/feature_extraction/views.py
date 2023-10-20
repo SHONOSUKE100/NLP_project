@@ -29,11 +29,22 @@ def rule_based_ner_to_json(text):
                 "label": subtree.label(),
                 "word": entity_word
             })
+        else:
+            for leaf in subtree.leaves():
+                start = text.find(leaf[0])
+                end = start + len(leaf[0])
+                entities.append({
+                    "start": start,
+                    "end": end,
+                    "label": None,
+                    "word": leaf[0]
+                })
 
     return {
         "text": text,
         "entities": entities
     }
+
 
 
 # 仮にメモリ内に結果を保存（本番環境ではデータベース等を使用）
