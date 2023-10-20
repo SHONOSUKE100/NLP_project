@@ -56,12 +56,17 @@ export default {
             const highlightStyle = `background-color: yellow; display: inline-block;`;
     
             // ラベルによってスタイルをカスタマイズ (必要に応じて)
-            if (label === 'PERSON') {
+            if(label === "None"){
+              highlightedText += `<span>${word}</span> `;
+            }
+            else if (label === 'PERSON') {
               // 人物の名前の場合、特定のスタイルを適用
+            }else{
+                          // ハイライトされたテキストを生成
+              highlightedText += `<span style="${highlightStyle}">${word}</span> `;
             }
     
-            // ハイライトされたテキストを生成
-            highlightedText += `<span style="${highlightStyle}">${word}</span> `;
+
           }
     
           this.highlightedText = highlightedText;
