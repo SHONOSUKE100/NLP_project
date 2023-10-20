@@ -10,7 +10,6 @@
         </v-btn>
       </v-col>
     </v-row>
-    
   </v-footer>
 </template>
 
@@ -36,6 +35,7 @@ export default {
       .then(response => {
         console.log('Message sent:', response.data);
         this.text = ''
+        
       })
       .catch(error => {
         console.error('An error occurred:', error);
