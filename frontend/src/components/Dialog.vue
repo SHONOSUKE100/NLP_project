@@ -1,60 +1,43 @@
 <template>
-    <div class="text-center">
-      <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="red lighten-2"
-            dark
-            v-bind="attrs"
-            v-on="on"
-            @click="dialog = true"
-          >
-            {{ word }}
-          </v-btn>
-        </template>
-  
-        <v-card>
-          <v-card-title class="text-h5 grey lighten-2">
-            {{ word }}
-          </v-card-title>
-  
-          <v-card-text>
-            <h2>{{ label }}</h2>
-           {{ discription }}
-          </v-card-text>
-  
-          <v-divider></v-divider>
-  
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              text
-              @click="dialog = false"
-            >
-              閉じる
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data () {
-      return {
-        dialog: false,
-      }
-    },
-    props: {
-        word: String,
-        label: String,
-        discription: String
-    },
+    <!-- <v-chip :color="getColorLabel(item.label)" @mouseenter="showModal = true" @mouseleave="showModal = false">{{ item.word }}</v-chip> -->
+    <v-chip :color="getColorLabel(item.label)" @click="showModal = true">{{ item.word }}</v-chip>
+    
+    <v-dialog v-model="showModal" max-width="600px">
+      <v-card>
+        <v-card-title>Entity Details</v-card-title>
+        <v-card-text>
+          <!-- モーダル内のコンテンツをカスタマイズ -->
+          <span v-if="item.label === 'None'">
+            Word: {{ item.word }}
+          </span>
+          <span v-else>
+            Label: {{ item.label }}
+            Word: {{ item.word }}
+          </span>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="showModal = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+</template>
+
+<script>
+import ColorLabel from './color';
+export default {
+  props: {
+    item: Object 
+  },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  methods: {
+    getColorLabel(label) {
+      // ラベルに対応する色を返すメソッド
+      return ColorLabel[label] || 'orange'; // ラベルが定義されていない場合は 'orange'
+    }
   }
+};
 </script>
-  

@@ -6,9 +6,11 @@
       <div v-if="result">
         <span v-for="(item, index) in result.text" :key="index">
           <span v-if="item.label === 'None'">
-            <span>{{ item.word }}</span>
+            {{ item.word }}&nbsp
           </span>
-          <v-chip v-else :color="getColorLabel(item.label)">{{ item.word }} </v-chip>&nbsp
+          <span v-else>
+            <Dialog :item="item"></Dialog>&nbsp
+          </span>
         </span>
       </div>
     </v-container>
@@ -18,13 +20,13 @@
 <script>
 import axios from 'axios';
 import Dialog from './dialog.vue';
-import ColorLabel from './color';
 
 export default {
   name: 'TextDisplay',
   data() {
     return {
       result: null,
+      showModal: false,
     };
   },
   components: {
@@ -46,10 +48,6 @@ export default {
           console.log('Error Headers:', error.response.headers);
         });
     },
-    getColorLabel(label) {
-      // ラベルに対応する色を返すメソッド
-      return ColorLabel[label] || 'orange'; // ラベルが定義されていない場合は 'orange'
-    }
   },
   mounted() {
     this.fetchResult();
