@@ -1,4 +1,3 @@
-
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -18,31 +17,46 @@ def rule_based_ner_to_json(text):
     tree = nltk.ne_chunk(tagged, binary=False)
 
     entities = []
+    nltks = []
+    text_modify = []
     for subtree in tree.subtrees():
         if subtree.label() != "S":  # "S"はSentenceのラベルなので除外
             entity_word = " ".join([word for word, tag in subtree.leaves()])
-            start = text.find(entity_word)
-            end = start + len(entity_word)
             entities.append({
-                # "start": start,
-                # "end": end,
                 "label": subtree.label(),
                 "word": entity_word,
             })
         else:
             for leaf in subtree.leaves():
-                start = text.find(leaf[0])
-                end = start + len(leaf[0])
+
                 entities.append({
-                    # "start": start,
-                    # "end": end,
+
                     "label": "None",
                     "word": leaf[0],
                 })
 
+    for entity in entities:
+        if entity["label"] != 'None':
+            nltks.append(entity)
+    
+    for entity in entities:
+        flag = False
+        if entity["label"] != 'None':
+            continue
+
+        for nltk_a in nltks:
+            if entity["word"] == nltk_a["word"]:
+                text_modify.append(nltk_a)
+                flag = True
+                break
+        if flag!=True:
+            text_modify.append(entity)
+        
+                
+
     return {
-        "text": text,
-        "entities": entities
+        "text": text_modify,
+        "entities": entities,
     }
 
 

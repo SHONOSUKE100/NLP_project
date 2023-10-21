@@ -4,11 +4,11 @@
     <v-container>
       <v-btn @click="fetchResult">Fetch Result</v-btn>
       <div v-if="result">
-        <span v-for="(item, index) in result.entities" :key="index">
+        <span v-for="(item, index) in result.text" :key="index">
           <span v-if="item.label === 'None'">
-            <span>{{ item.word }}</span>&nbsp
+            <span>{{ item.word }}</span>
           </span>
-          <v-chip v-else :color="getColorLabel(item.label)">{{ item.word }} </v-chip>
+          <v-chip v-else :color="getColorLabel(item.label)">{{ item.word }} </v-chip>&nbsp
         </span>
       </div>
     </v-container>
@@ -25,9 +25,6 @@ export default {
   data() {
     return {
       result: null,
-      word: "aaac",
-      label: "person",
-      discription: "this is a pen"
     };
   },
   components: {

@@ -1,6 +1,8 @@
 const labelColors = {
     "PERSON": 'blue',
-    "LOCATION": 'orange'
+    "LOCATION": 'orange',
+    "ORGANIZATION": 'green',
+    "GPE": 'pink',
 }
 
 export default labelColors;
