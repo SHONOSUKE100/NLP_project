@@ -35,6 +35,7 @@
 import ColorLabel from './color';
 import axios from 'axios';
 export default {
+  name: 'Dialog',
   props: {
     item: Object
   },

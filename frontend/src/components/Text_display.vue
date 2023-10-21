@@ -2,7 +2,6 @@
 <template>
   <v-main class="">
     <v-container>
-      <v-btn @click="fetchResult">Fetch Result</v-btn>
       <div v-if="result">
         <span v-for="(item, index) in result.text" :key="index">
           <span v-if="item.label === 'None'">
@@ -20,6 +19,7 @@
 <script>
 import axios from 'axios';
 import Dialog from './dialog.vue';
+
 
 export default {
   name: 'TextDisplay',
