@@ -24,20 +24,20 @@ def rule_based_ner_to_json(text):
             start = text.find(entity_word)
             end = start + len(entity_word)
             entities.append({
-                "start": start,
-                "end": end,
+                # "start": start,
+                # "end": end,
                 "label": subtree.label(),
-                "word": entity_word
+                "word": entity_word,
             })
         else:
             for leaf in subtree.leaves():
                 start = text.find(leaf[0])
                 end = start + len(leaf[0])
                 entities.append({
-                    "start": start,
-                    "end": end,
+                    # "start": start,
+                    # "end": end,
                     "label": "None",
-                    "word": leaf[0]
+                    "word": leaf[0],
                 })
 
     return {

@@ -2,8 +2,8 @@
     <div>
       <v-app>
         <Header></Header>
-        <Text :messages="messages"></Text>
-        <Form @sendMessage="addMessage"></Form>
+        <Text></Text>
+        <Form></Form>
       </v-app>
     </div>
   </template>

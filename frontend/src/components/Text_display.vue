@@ -3,24 +3,35 @@
   <v-main class="">
     <v-container>
       <v-btn @click="fetchResult">Fetch Result</v-btn>
-      <div v-if=this.result v-html="highlightedText"></div>
+      <div v-if="result">
+        <span v-for="(item, index) in result.entities" :key="index">
+          <span v-if="item.label === 'None'">
+            <span>{{ item.word }}</span>&nbsp
+          </span>
+          <v-chip v-else :color="getColorLabel(item.label)">{{ item.word }} </v-chip>
+        </span>
+      </div>
     </v-container>
   </v-main>
 </template>
+
 <script>
 import axios from 'axios';
+import Dialog from './dialog.vue';
+import ColorLabel from './color';
 
 export default {
   name: 'TextDisplay',
   data() {
     return {
-      result: null
+      result: null,
+      word: "aaac",
+      label: "person",
+      discription: "this is a pen"
     };
   },
-  computed: {
-    send () {
-      return this.$store.state.send
-    }
+  components: {
+    Dialog
   },
   methods: {
     fetchResult() {
@@ -29,7 +40,7 @@ export default {
       })
         .then(response => {
           this.result = response.data.result;
-          this.highlightText();
+          console.log(this.result);
         })
         .catch(error => {
           console.error('An error occurred:', error);
@@ -38,45 +49,13 @@ export default {
           console.log('Error Headers:', error.response.headers);
         });
     },
-      highlightText() {
-        if (this.result) {
-          const Data = this.result; // JSONデータを解析
-          console.log(Data);
-          let highlightedText = ''; // ハイライトされたテキスト
-    
-          // テキスト内の各単語に対して処理
-          const words = Data.entities; // 単語の位置情報を含む配列
-          console.log(words);
-          for (let i = 0; i < words.length; i++) {
-            const wordData = words[i];
-            const label = wordData.label; // ラベル (e.g., "PERSON")
-            const word = wordData.word; // 単語
-    
-            // ハイライトスタイルを設定
-            const highlightStyle = `background-color: yellow; display: inline-block;`;
-    
-            // ラベルによってスタイルをカスタマイズ (必要に応じて)
-            if(label === "None"){
-              highlightedText += `<span>${word}</span> `;
-            }
-            else if (label === 'PERSON') {
-              // 人物の名前の場合、特定のスタイルを適用
-            }else{
-                          // ハイライトされたテキストを生成
-              highlightedText += `<span style="${highlightStyle}">${word}</span> `;
-            }
-    
-
-          }
-    
-          this.highlightedText = highlightedText;
-        }
-      },
+    getColorLabel(label) {
+      // ラベルに対応する色を返すメソッド
+      return ColorLabel[label] || 'orange'; // ラベルが定義されていない場合は 'orange'
+    }
   },
   mounted() {
     this.fetchResult();
   }
 }
 </script>
-  
-  
