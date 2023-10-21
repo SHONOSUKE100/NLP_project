@@ -43,6 +43,7 @@ export default {
         console.log('Error Status:', error.response.status);
         console.log('Error Headers:', error.response.headers);
       });
+      this.$emit("dataSubmitted");
     },
     initializeHeight() {
       const textarea = this.$refs.textarea.$el.querySelector("textarea");
