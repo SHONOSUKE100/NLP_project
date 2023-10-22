@@ -8,55 +8,35 @@ nltk.download('maxent_ne_chunker')
 nltk.download('words')
 
 
-#　Rule-Base　の　NER関数
-import nltk
-
 def rule_based_ner_to_json(text):
     tokens = nltk.word_tokenize(text)
     tagged = nltk.pos_tag(tokens)
     tree = nltk.ne_chunk(tagged, binary=False)
 
-    entities = []
     nltks = []
     text_modify = []
+    
+    # Create a dictionary for quick lookup of words found in nltks
+    nltks_dict = {}
+
     for subtree in tree.subtrees():
-        if subtree.label() != "S":  # "S"はSentenceのラベルなので除外
-            entity_word = " ".join([word for word, tag in subtree.leaves()])
-            entities.append({
+        if subtree.label() != "S":
+            entity_word = " ".join(word for word, tag in subtree.leaves())
+            entity_info = {
                 "label": subtree.label(),
                 "word": entity_word,
-            })
-        else:
-            for leaf in subtree.leaves():
-
-                entities.append({
-
-                    "label": "None",
-                    "word": leaf[0],
-                })
-
-    for entity in entities:
-        if entity["label"] != 'None':
-            nltks.append(entity)
+            }
+            nltks.append(entity_info)
+            nltks_dict[entity_word] = entity_info
     
-    for entity in entities:
-        flag = False
-        if entity["label"] != 'None':
-            continue
-
-        for nltk_a in nltks:
-            if entity["word"] == nltk_a["word"]:
-                text_modify.append(nltk_a)
-                flag = True
-                break
-        if flag!=True:
-            text_modify.append(entity)
-        
-                
+    for leaf in tree.leaves():
+        word = leaf[0]
+        entity = nltks_dict.get(word, {"label": "None", "word": word})
+        text_modify.append(entity)
 
     return {
         "text": text_modify,
-        "entities": entities,
+        "entities": nltks + [entity for entity in text_modify if entity['label'] == 'None']
     }
 
 
