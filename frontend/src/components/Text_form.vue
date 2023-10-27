@@ -35,7 +35,7 @@ export default {
       .then(response => {
         console.log('Message sent:', response.data);
         this.text = ''
-        
+        this.$emit("dataSubmitted");
       })
       .catch(error => {
         console.error('An error occurred:', error);
@@ -43,7 +43,7 @@ export default {
         console.log('Error Status:', error.response.status);
         console.log('Error Headers:', error.response.headers);
       });
-      this.$emit("dataSubmitted");
+
     },
     initializeHeight() {
       const textarea = this.$refs.textarea.$el.querySelector("textarea");
