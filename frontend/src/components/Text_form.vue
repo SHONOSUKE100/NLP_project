@@ -33,7 +33,7 @@ export default {
         text: this.text
       })
       .then(response => {
-        console.log('Message sent:', response.data);
+        console.log('Message sent:', response);
         this.text = ''
         this.$emit("dataSubmitted");
       })
