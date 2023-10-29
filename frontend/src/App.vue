@@ -29,7 +29,7 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.$refs.Text.fetchResult();
-      }, 100);
+      }, 1000);
       this.reloadComponent();
     },
     reloadComponent() {
