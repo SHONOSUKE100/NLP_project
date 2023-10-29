@@ -148,7 +148,7 @@ def process_with_crf_text(request):
     received_text = request.data.get('text', None)
     
     if received_text is not None:
-        processed_text = ner_with_crf(received_text)
+        processed_text = ner_with_crf(received_text, "./nlp_model/optimal_crf_model.pkl")
         
         # 処理結果を保存
         processed_text_memory['crf'] = processed_text
