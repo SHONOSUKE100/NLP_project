@@ -41,7 +41,17 @@ services:
       - backend
     env_file:
       - ./.env.dev
+
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - type: volume
+        source: postgres_data
+        target: /var/lib/postgresql/data/
+    env_file:
+      - ./.env.dev
 volumes:
   backend_volume:
   frontend_volume:
+  postgres_data:
 

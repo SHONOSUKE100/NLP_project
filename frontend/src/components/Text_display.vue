@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     fetchResult() {
-      axios.post('http://localhost:8000/api/get_processed_text/', {
+      axios.get('http://localhost:8000/api/processed_with_rulebase/', {
         // 任意の条件などを送信できます
       })
         .then(response => {
