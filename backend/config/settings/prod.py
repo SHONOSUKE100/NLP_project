@@ -6,7 +6,7 @@ import os
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") == "True" #DEBUGはbool型なので文字列の判定結果を格納する
+DEBUG = os.environ.get("DEBUG") == "False" #DEBUGはbool型なので文字列の判定結果を格納する
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
