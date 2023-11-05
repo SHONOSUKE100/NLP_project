@@ -3,7 +3,7 @@
   <v-main class="">
     <v-container>
       <div class="text-center">
-        
+        <div>{{ this.url }}</div>
         <v-menu>
           <template v-slot:activator="{ props }">
             <v-btn color="primary" v-bind="props">
@@ -40,22 +40,18 @@
 <script>
 import axios from 'axios';
 import Dialog from './Dialog.vue';
-import { ref } from 'vue';
 
 export default {
   name: 'TextDisplay',
-  setup() {
-    const url = ref('http://localhost:8000/api/get_processed_text/');
-  },
   data() {
     return {
       result: null,
       showModal: false,
       selected: '',
-      url: "http://localhost:8000/api/get_processed_text/",
+      url: "http://localhost:8000/api/processed_with_rulebase/",
       endpoints: [
-        {id: 1, name: 'model1',url: "http://localhost:8000/api/get_processed_text/"},
-        {id: 2, name: 'model2', url: "aaaa"},
+        {id: 1, name: 'model1',url: "http://localhost:8000/api/processed_with_rulebase/"},
+        {id: 2, name: 'model2', url: "http://localhost:8000/api/processed_with_crf/"},
         {id: 3, name: 'model3', url: "a"},
       ]
     };
@@ -65,7 +61,7 @@ export default {
   },
   methods: {
     fetchResult() {
-      axios.get('http://localhost:8000/api/processed_with_rulebase/', {
+      axios.get(this.url, {
         // 任意の条件などを送信できます
       })
         .then(response => {
@@ -81,6 +77,7 @@ export default {
     },
     clickItem(event){
       this.selected = event.id;
+      this.url = this.endpoints[this.selected -1 ].url;
     }
   },
   mounted() {
