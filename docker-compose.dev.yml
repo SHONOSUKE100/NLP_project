@@ -47,9 +47,13 @@ services:
     volumes:
       - type: volume
         source: postgres_data
-        target: /var/lib/postgresql/data/
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./mydatabase_dump.sql
+        target: /docker-entrypoint-initdb.d/dump.sql
     env_file:
       - ./.env.dev
+      
 volumes:
   backend_volume:
   frontend_volume:
