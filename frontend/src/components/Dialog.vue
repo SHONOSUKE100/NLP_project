@@ -51,7 +51,7 @@ export default {
       return ColorLabel[label] || 'orange'; // ラベルが定義されていない場合は 'orange'
     },
     getImage(value) {
-      const API_KEY = "40185227-1a1325527079599bcc211f6bf";
+      const API_KEY = prosess.env.API_KEY;
       const baseUrl = 'https://pixabay.com/api/?key=' + API_KEY;
       var keyword = '&q=' + encodeURIComponent(value);
       var option = '&orientation=horizontal';
